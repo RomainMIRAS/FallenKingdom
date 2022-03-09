@@ -40,8 +40,7 @@ public class CommandGame implements CommandExecutor {
 				break;
 			}
 		}
-			
-	
+				
 		return false;
 	}
 	
