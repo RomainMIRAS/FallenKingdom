@@ -1,6 +1,7 @@
 package fr.grimmjoow.fallenkingdom.listener;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -21,6 +22,8 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.grimmjoow.fallenkingdom.GState;
 import fr.grimmjoow.fallenkingdom.Main;
+import fr.grimmjoow.fallenkingdom.teams.TeamFK;
+import fr.grimmjoow.fallenkingdom.utils.Utils;
 
 public class LobbyListener implements Listener {
 
@@ -89,7 +92,7 @@ public class LobbyListener implements Listener {
 
 	@EventHandler
 	public void onZone(PlayerMoveEvent event) {
-		Player player = event.getPlayer();
+		//Player player = event.getPlayer();
 		if (main.isState(GState.WAITING)) {
 //			if (!lobby.isOn(player)){
 //				player.teleport(spawn);
@@ -161,17 +164,23 @@ public class LobbyListener implements Listener {
 			// Check Click Banner
 			switch (item.getItemMeta().getDisplayName()) {
 			case "§cEquipe Rouge":
-				player.sendMessage("§eVous avez rejoins l'équipe Rouge");
+				
+				TeamFK.switchTeamToPlayer(player, Color.RED);
+				
 				break;
 			case "§cEquipe Bleu":
-				player.sendMessage("§eVous avez rejoins l'équipe Bleu");
+				
+				TeamFK.switchTeamToPlayer(player, Color.BLUE);;
 				break;
 			case "§cEquipe Vert":
-				player.sendMessage("§eVous avez rejoins l'équipe Vert");
+				
+				TeamFK.switchTeamToPlayer(player, Color.GREEN);
 				break;
 			default:
 				break;
 			}
+			player.sendMessage("Vous avez rejoint l'équipe " + Utils.colorToString(TeamFK.getTeamWithPlayer(player).getColor()));
+			
 		}
 	}
 

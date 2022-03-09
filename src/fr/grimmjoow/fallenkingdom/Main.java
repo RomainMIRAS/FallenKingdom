@@ -5,6 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import fr.grimmjoow.fallenkingdom.commands.CommandGame;
 import fr.grimmjoow.fallenkingdom.commands.CommandTest;
 import fr.grimmjoow.fallenkingdom.listener.LobbyListener;
+import fr.grimmjoow.fallenkingdom.teams.TeamFK;
+import fr.grimmjoow.fallenkingdom.utils.Utils;
 
 public class Main extends JavaPlugin {
 
@@ -16,6 +18,8 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		System.out.println("Le Plugin c'est bien allume");
+		TeamFK.initTeams();
+		Utils.InitColors();
 		setState(GState.WAITING);
 		getCommand("test").setExecutor(new CommandTest());
 		getCommand("game").setExecutor(new CommandGame(this));
