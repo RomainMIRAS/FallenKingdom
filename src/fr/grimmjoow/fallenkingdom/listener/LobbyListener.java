@@ -21,19 +21,16 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.grimmjoow.fallenkingdom.GState;
 import fr.grimmjoow.fallenkingdom.Main;
-import fr.grimmjoow.fallenkingdom.Zone;
-import net.minecraft.server.v1_8_R3.Position;
 
 public class LobbyListener implements Listener {
 
 	private Main main;
-	
-	
-	// Mettre bonne co
-	//private Zone lobby = new Zone(new Position(171,73,152),new Position(177,69,146));
-	
-	private Location spawn = new Location(Bukkit.getWorld("FK"), 74.5, 59, 69.5, -60f, -5f);
 
+	// Mettre bonne co
+	// private Zone lobby = new Zone(new Position(171,73,152),new
+	// Position(177,69,146));
+
+	private Location spawn = new Location(Bukkit.getWorld("FK"), 74.5, 59, 69.5, -60f, -5f);
 
 	public LobbyListener(Main main) {
 		this.main = main;
@@ -47,25 +44,29 @@ public class LobbyListener implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 
 		Player player = event.getPlayer();
-		if (!player.isOp()) {
 
-			player.teleport(spawn);
-			player.setFoodLevel(20);
-			player.setHealth(20);
-			player.setGameMode(GameMode.ADVENTURE);
-
-			// Si le jeu à commancer
-			if (!main.isState(GState.WAITING)) {
-				player.setGameMode(GameMode.SPECTATOR);
-				player.sendMessage("§eLa partie a déjà commencé");
-				return;
-			}
-			
-			player.getInventory().clear();
-			player.getInventory().setItem(1, getItem(Material.BANNER, "Teams", (byte) 15));
-			player.getInventory().setItem(0, getItem(Material.NAME_TAG, "§eChoix du Kits"));
-
+		player.teleport(spawn);
+		player.setFoodLevel(20);
+		player.setHealth(20);
+		player.setGameMode(GameMode.ADVENTURE);
+		// Si le jeu à commancer
+		if (!main.isState(GState.WAITING)) {
+			player.setGameMode(GameMode.SPECTATOR);
+			player.sendMessage("§eLa partie a déjà commencé");
+			return;
 		}
+		player.getInventory().clear();
+		player.getInventory().setItem(1, getItem(Material.BANNER, "Teams", (byte) 15));
+		player.getInventory().setItem(0, getItem(Material.NAME_TAG, "§eChoix du Kits"));
+
+		if (player.isOp()) {
+			event.setJoinMessage(main.getEnteteChat() + " §4" + player.getDisplayName() + " §7 a rejoint la partie "
+					+ "§a(" + player.getWorld().getPlayers().size() + 1 + "/" + Bukkit.getMaxPlayers() + ")");
+		} else {
+			event.setJoinMessage(main.getEnteteChat() + " §f" + player.getDisplayName() + " §7 a rejoint la partie "
+					+ "§a(" + player.getWorld().getPlayers().size() + 1 + "/" + Bukkit.getMaxPlayers() + ")");
+		}
+
 	}
 
 	@EventHandler
@@ -85,8 +86,7 @@ public class LobbyListener implements Listener {
 				event.setCancelled(true);
 		}
 	}
-	
-	
+
 	@EventHandler
 	public void onZone(PlayerMoveEvent event) {
 		Player player = event.getPlayer();
@@ -95,7 +95,7 @@ public class LobbyListener implements Listener {
 //				player.teleport(spawn);
 //			}
 		}
-		
+
 	}
 
 	//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

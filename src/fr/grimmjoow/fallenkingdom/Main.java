@@ -11,6 +11,7 @@ public class Main extends JavaPlugin {
 	
 	private GState state;
 	private Kits kits = new Kits();
+	private String enteteChat = "§8[§9FK§8]";
 
 	@Override
 	public void onEnable() {
@@ -36,6 +37,10 @@ public class Main extends JavaPlugin {
 	
 	public boolean isState(GState state) {
 		return this.state == state;
+	}
+	
+	public String getEnteteChat() {
+		return enteteChat;
 	}
 	
 	
