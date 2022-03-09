@@ -1,0 +1,11 @@
+name : Fallen Kingdom
+version : 1.0
+author : Grimmjoow
+main : fr.grimmjoow.fallenkingdom.Main
+commands:
+  test:
+    description: Ceci est une commande de test
+    permission: test.use
+  game:
+    description: Gestion de la partie
+    permission: game.use
