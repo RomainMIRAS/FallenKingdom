@@ -3,8 +3,10 @@ package fr.grimmjoow.fallenkingdom.kits;
 import java.util.HashMap;
 
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 public class Kits {
 			
@@ -63,6 +65,43 @@ public class Kits {
 		}
 		return name;
 		
+	}
+	
+	public void playerSetKit(Player player) {		
+		
+		Inventory inv = player.getInventory();
+		inv.addItem(new ItemStack(Material.TORCH,8));
+		inv.addItem(new ItemStack(Material.BAKED_POTATO,3));
+		
+		if (!hasKit(player)) {
+			return;
+		} else {
+			switch (kitJoueur.get(player)) {
+			case GUERRIER:
+				KitLoading.getKitGuerrier(player);
+				break;
+			case MINEUR:
+				KitLoading.getKitMineur(player);
+				break;
+			case FARMER:
+				KitLoading.getKitFarmeur(player);
+				break;
+			case ECLAIREUR:
+				KitLoading.getKitEclaireur(player);
+				break;
+			case RANGER:
+				KitLoading.getKitRanger(player);
+				break;
+			case ALCHIMISTE:
+				KitLoading.getKitAlchimiste(player);
+				break;
+			case ENCHANTEUR:
+				KitLoading.getKitEnchanteur(player);
+				break;
+			default:
+				break;
+			}
+		}
 	}
 	
 	public void openInterfaceKits(Player player) {
