@@ -3,8 +3,14 @@ package fr.grimmjoow.fallenkingdom.teams;
 import java.util.HashMap;
 import java.util.HashSet;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.entity.Player;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.ScoreboardManager;
+import org.bukkit.scoreboard.Team;
+
+import fr.grimmjoow.fallenkingdom.utils.Utils;
 
 public class TeamFK {
 	private static HashMap<Color,TeamFK> TEAMS = new HashMap<>();
@@ -13,22 +19,33 @@ public class TeamFK {
 	private int health;
 	private Color color;
 	private boolean alive;
-
+	
+	private static Scoreboard SCOREBOARD;
+	private Team team;
 	
 	private final static int VIE = 1000;
 	
 	TeamFK(Color color) {
 		this.color = color;
 		this.health = VIE;
-		this.alive = true;		
+		this.alive = true;	
+		
+		team = SCOREBOARD.registerNewTeam(Utils.colorToString(color));
+		team.setPrefix(Utils.colorToChatColor(color) + "");
 	}
 	
 	public static void initTeams() {
+		ScoreboardManager manager = Bukkit.getServer().getScoreboardManager();
+		SCOREBOARD = manager.getNewScoreboard();
+		
 		TEAMS.put(Color.RED, new TeamFK(Color.RED));
 		TEAMS.put(Color.BLUE, new TeamFK(Color.BLUE));
 		TEAMS.put(Color.GREEN, new TeamFK(Color.GREEN));
 		TEAMS.put(Color.YELLOW, new TeamFK(Color.YELLOW));
 		TEAMS.put(Color.ORANGE, new TeamFK(Color.ORANGE));
+		
+		
+
 	}
 	
 	
@@ -82,12 +99,16 @@ public class TeamFK {
 	
 	// Vrai si ok, faux si deja dans l'équipe
 	public boolean addPlayer(Player player) {
+		team.addEntry(player.getName());
+		player.setScoreboard(SCOREBOARD);
 		return this.players.add(player);
+		
 		
 	}
 	
 	// Vrai si existait dans l'équipe, faux sinon
 	public boolean removePlayer(Player player) {
+		team.removeEntry(player.getName());
 		return this.players.remove(player);
 	}
 	

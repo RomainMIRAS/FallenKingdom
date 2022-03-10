@@ -18,8 +18,8 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		System.out.println("Le Plugin c'est bien allume");
-		TeamFK.initTeams();
 		Utils.InitColors();
+		TeamFK.initTeams();
 		setState(GState.WAITING);
 		getCommand("test").setExecutor(new CommandTest());
 		getCommand("game").setExecutor(new CommandGame(this));
