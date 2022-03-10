@@ -23,7 +23,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import fr.grimmjoow.fallenkingdom.GState;
 import fr.grimmjoow.fallenkingdom.Main;
 import fr.grimmjoow.fallenkingdom.teams.TeamFK;
-import fr.grimmjoow.fallenkingdom.utils.Utils;
+import fr.grimmjoow.fallenkingdom.utils.ColorUtils;
 
 public class LobbyListener implements Listener {
 
@@ -179,7 +179,7 @@ public class LobbyListener implements Listener {
 			default:
 				break;
 			}
-			player.sendMessage("Vous avez rejoint l'équipe " + Utils.colorToString(TeamFK.getTeamWithPlayer(player).getColor()));
+			player.sendMessage("Vous avez rejoint l'équipe " + ColorUtils.colorToString(TeamFK.getTeamWithPlayer(player).getColor()));
 			
 		}
 	}

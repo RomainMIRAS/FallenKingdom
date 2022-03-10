@@ -6,7 +6,7 @@ import fr.grimmjoow.fallenkingdom.commands.CommandGame;
 import fr.grimmjoow.fallenkingdom.commands.CommandTest;
 import fr.grimmjoow.fallenkingdom.listener.LobbyListener;
 import fr.grimmjoow.fallenkingdom.teams.TeamFK;
-import fr.grimmjoow.fallenkingdom.utils.Utils;
+import fr.grimmjoow.fallenkingdom.utils.ColorUtils;
 
 public class Main extends JavaPlugin {
 
@@ -18,7 +18,7 @@ public class Main extends JavaPlugin {
 	@Override
 	public void onEnable() {
 		System.out.println("Le Plugin c'est bien allume");
-		Utils.InitColors();
+		ColorUtils.InitColors();
 		TeamFK.initTeams();
 		setState(GState.WAITING);
 		getCommand("test").setExecutor(new CommandTest());

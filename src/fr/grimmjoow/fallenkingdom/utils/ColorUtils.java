@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.bukkit.ChatColor;
 import org.bukkit.Color;
 
-public class Utils {
+public class ColorUtils {
 	private static HashMap<Color,String> COLORS = new HashMap<>();
 	private static HashMap<Color,ChatColor> CHAT_COLORS = new HashMap<>(); 
 	

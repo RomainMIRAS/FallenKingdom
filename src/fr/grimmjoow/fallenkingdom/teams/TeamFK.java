@@ -10,28 +10,28 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
-import fr.grimmjoow.fallenkingdom.utils.Utils;
+import fr.grimmjoow.fallenkingdom.Zone;
+import fr.grimmjoow.fallenkingdom.utils.ColorUtils;
 
 public class TeamFK {
 	private static HashMap<Color,TeamFK> TEAMS = new HashMap<>();
+	private static Scoreboard SCOREBOARD;
 	
 	private HashSet<Player> players = new HashSet<>();
 	private int health;
 	private Color color;
 	private boolean alive;
-	
-	private static Scoreboard SCOREBOARD;
 	private Team team;
-	
-	private final static int VIE = 1000;
+	private HashSet<Zone> zones = new HashSet<>();
+	private final static int VIE = 1000; //A changer
 	
 	TeamFK(Color color) {
 		this.color = color;
 		this.health = VIE;
 		this.alive = true;	
 		
-		team = SCOREBOARD.registerNewTeam(Utils.colorToString(color));
-		team.setPrefix(Utils.colorToChatColor(color) + "");
+		team = SCOREBOARD.registerNewTeam(ColorUtils.colorToString(color));
+		team.setPrefix(ColorUtils.colorToChatColor(color) + "");
 	}
 	
 	public static void initTeams() {
@@ -97,27 +97,24 @@ public class TeamFK {
 		}
 	}
 	
-	// Vrai si ok, faux si deja dans l'équipe
-	public boolean addPlayer(Player player) {
-		team.addEntry(player.getName());
-		player.setScoreboard(SCOREBOARD);
-		return this.players.add(player);
-		
-		
-	}
-	
-	// Vrai si existait dans l'équipe, faux sinon
-	public boolean removePlayer(Player player) {
-		team.removeEntry(player.getName());
-		return this.players.remove(player);
-	}
-	
 	public void decreaseHealth(int health) {
 		this.health -= health;
 		if(health <= 0) {
 			this.alive = false;
 			this.health = 0;
 		}
+	}
+	// Vrai si ok, faux si deja dans l'équipe
+	public boolean addPlayer(Player player) {
+		team.addEntry(player.getName());
+		player.setScoreboard(SCOREBOARD);
+		return this.players.add(player);	
+	}
+	
+	// Vrai si existait dans l'équipe, faux sinon
+	public boolean removePlayer(Player player) {
+		team.removeEntry(player.getName());
+		return this.players.remove(player);
 	}
 	
 	public HashSet<Player> getPlayers() {
@@ -135,4 +132,26 @@ public class TeamFK {
 	public boolean isAlive() {
 		return this.alive;
 	}
+	
+	public HashSet<Zone> getZones() {
+		return this.zones;
+	}
+	//True si ok, Faux si existe deja
+	public boolean addZone(Zone zone) {
+		return this.zones.add(zone);
+	}
+	//True si bien supprimee, Faux si n'existait pas
+	public boolean removeZone(Zone zone) {
+		return this.zones.remove(zone);
+	}
+	
+	public boolean isZonesTriggered(Player player) {
+		for(Zone zone : this.zones) {
+			if (zone.isOn(player)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 }
