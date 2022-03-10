@@ -1,4 +1,4 @@
-package fr.grimmjoow.fallenkingdom;
+package fr.grimmjoow.fallenkingdom.kits;
 
 import java.util.HashMap;
 
@@ -7,28 +7,21 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
 public class Kits {
-
-	public static final int GUERRIER = 9;
-	public static final int MINEUR = 10;
-	public static final int FARMER = 11;
-	public static final int ECLAIREUR = 12;
-	public static final int RANGER = 13;
-	public static final int ALCHIMISTE = 14;
-	public static final int ENCHANTEUR = 15;
 			
-	private HashMap<Player,Integer> kitJoueur;
+	private HashMap<Player,ListKits> kitJoueur;
 	
 	public Kits() {
 		
-		this.kitJoueur = new HashMap<Player,Integer>();
+		this.kitJoueur = new HashMap<Player,ListKits>();
 	}
 	
-	public HashMap<Player, Integer> getKitJoueur() {
+	public HashMap<Player, ListKits> getKitJoueur() {
 		return kitJoueur;
 	}
 	
-	public void addKitToJoueur(int kit, Player joueur){
+	public void addKitToJoueur(ListKits kit, Player joueur){
 		kitJoueur.put(joueur,kit);
+		joueur.sendMessage("§6Votre kit : §e" + getKitNameFromPlayer(joueur));
 	}
 	
 	public boolean hasKit(Player joueur) {
@@ -73,10 +66,14 @@ public class Kits {
 	}
 	
 	public void openInterfaceKits(Player player) {
-		
     	Inventory inv = Bukkit.createInventory(null, 9,"§7Sélection : §e" + getKitNameFromPlayer(player));
-    	
+    	inv.addItem(KitLoading.getItemGuerrier());
+    	inv.addItem(KitLoading.getItemMineur());
+    	inv.addItem(KitLoading.getItemFarmeur());
+    	inv.addItem(KitLoading.getItemEclaireur());
+    	inv.addItem(KitLoading.getItemRanger());
+    	inv.addItem(KitLoading.getItemAlchimiste());
+    	inv.addItem(KitLoading.getItemEnchanteur());
     	player.openInventory(inv);
-		
 	}
 }

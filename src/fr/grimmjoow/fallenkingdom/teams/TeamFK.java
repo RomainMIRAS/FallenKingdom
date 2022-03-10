@@ -43,8 +43,6 @@ public class TeamFK {
 		TEAMS.put(Color.GREEN, new TeamFK(Color.GREEN));
 		TEAMS.put(Color.YELLOW, new TeamFK(Color.YELLOW));
 		TEAMS.put(Color.ORANGE, new TeamFK(Color.ORANGE));
-		
-		
 
 	}
 	

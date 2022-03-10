@@ -22,6 +22,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.grimmjoow.fallenkingdom.GState;
 import fr.grimmjoow.fallenkingdom.Main;
+import fr.grimmjoow.fallenkingdom.kits.ListKits;
 import fr.grimmjoow.fallenkingdom.teams.TeamFK;
 import fr.grimmjoow.fallenkingdom.utils.ColorUtils;
 
@@ -60,7 +61,7 @@ public class LobbyListener implements Listener {
 		}
 		player.getInventory().clear();
 		player.getInventory().setItem(1, getItem(Material.BANNER, "Teams", (byte) 15));
-		player.getInventory().setItem(0, getItem(Material.NAME_TAG, "§eChoix du Kits"));
+		player.getInventory().setItem(0, getItem(Material.NAME_TAG, "§eChoix du ListKits"));
 
 		if (player.isOp()) {
 			event.setJoinMessage(main.getEnteteChat() + " §4" + player.getDisplayName() + " §7 a rejoint la partie "
@@ -123,7 +124,7 @@ public class LobbyListener implements Listener {
 				}
 			}
 		} else if (it.getType() == Material.NAME_TAG) {
-			if (it.getItemMeta().getDisplayName().equalsIgnoreCase("§eChoix du Kits")) {
+			if (it.getItemMeta().getDisplayName().equalsIgnoreCase("§eChoix du ListKits")) {
 
 				if (action == Action.RIGHT_CLICK_AIR || action == Action.RIGHT_CLICK_BLOCK) {
 					event.setCancelled(true);
@@ -135,9 +136,11 @@ public class LobbyListener implements Listener {
 
 	public void openTeamMenu(Player player) {
 		Inventory inv = Bukkit.createInventory(null, 9, "§8Choisir une équipe");
-		inv.setItem(1, getItem(Material.BANNER, "§cEquipe Rouge", (byte) 1));
-		inv.setItem(3, getItem(Material.BANNER, "§cEquipe Bleu", (byte) 4));
-		inv.setItem(5, getItem(Material.BANNER, "§cEquipe Vert", (byte) 10));
+		inv.setItem(0, getItem(Material.BANNER, "§cEquipe Rouge", (byte) 1));
+		inv.setItem(2, getItem(Material.BANNER, "§cEquipe Bleu", (byte) 4));
+		inv.setItem(4, getItem(Material.BANNER, "§cEquipe Vert", (byte) 10));
+		inv.setItem(6, getItem(Material.BANNER, "§cEquipe Jaune", (byte) 11));
+		inv.setItem(8, getItem(Material.BANNER, "§cEquipe Orange", (byte) 14));
 		player.openInventory(inv);
 	}
 
@@ -173,14 +176,47 @@ public class LobbyListener implements Listener {
 				TeamFK.switchTeamToPlayer(player, Color.BLUE);;
 				break;
 			case "§cEquipe Vert":
-				
 				TeamFK.switchTeamToPlayer(player, Color.GREEN);
+				break;
+			case "§cEquipe Jaune":
+				TeamFK.switchTeamToPlayer(player, Color.YELLOW);
+				break;
+			case "§cEquipe Orange":
+				TeamFK.switchTeamToPlayer(player, Color.ORANGE);
 				break;
 			default:
 				break;
 			}
 			player.sendMessage("Vous avez rejoint l'équipe " + ColorUtils.colorToString(TeamFK.getTeamWithPlayer(player).getColor()));
 			
+		} else if (inv.getName().contains("§7Sélection")) {
+			event.setCancelled(true);
+			player.closeInventory();
+			switch (item.getType()) {
+			case STONE_SWORD:
+				main.getKits().addKitToJoueur(ListKits.GUERRIER, player);
+				break;
+			case STONE_PICKAXE:
+				main.getKits().addKitToJoueur(ListKits.MINEUR, player);
+				break;
+			case BONE:
+				main.getKits().addKitToJoueur(ListKits.FARMER, player);
+				break;
+			case FEATHER:
+				main.getKits().addKitToJoueur(ListKits.ECLAIREUR, player);
+				break;
+			case BOW:
+				main.getKits().addKitToJoueur(ListKits.RANGER, player);
+				break;
+			case BREWING_STAND_ITEM:
+				main.getKits().addKitToJoueur(ListKits.ALCHIMISTE, player);
+				break;
+			case EXP_BOTTLE:
+				main.getKits().addKitToJoueur(ListKits.ENCHANTEUR, player);
+				break;
+			default:
+				break;
+			}
 		}
 	}
 
