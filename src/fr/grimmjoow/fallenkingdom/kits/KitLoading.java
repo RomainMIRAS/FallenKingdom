@@ -2,7 +2,6 @@ package fr.grimmjoow.fallenkingdom.kits;
 
 import java.util.ArrayList;
 
-import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -22,6 +21,10 @@ public class KitLoading {
 		lore.add("");
 		lore.add("§7Obtenez en début de partie :");
 		lore.add("");
+		lore.add("§7- Un plastron en fer §dPIII§5, Throns I");
+		lore.add("§7- Un pantalon en fer §dPIII§5, Throns I");
+		lore.add("§7- Une épée en pierre §dSharpness II");
+		lore.add("§7- Une épée en fer §dSharpness II");
 		
 		ItemStack it = new ItemStack(Material.STONE_SWORD,1);
 		ItemMeta meta = it.getItemMeta();
@@ -33,7 +36,36 @@ public class KitLoading {
 	}
 	
 	public static void getKitGuerrier(Player player) {
+		Inventory inv = player.getInventory();
+		// CHESP IRON 1
+		ItemStack it = new ItemStack(Material.IRON_CHESTPLATE,1);
+		ItemMeta meta = it.getItemMeta();
+		meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+		meta.addEnchant(Enchantment.THORNS, 1, false);
+		it.setItemMeta(meta);
+		inv.addItem(it);
 		
+		// PANT EN FER
+		it = new ItemStack(Material.IRON_LEGGINGS,1);
+		meta = it.getItemMeta();
+		meta.addEnchant(Enchantment.PROTECTION_ENVIRONMENTAL, 3, false);
+		meta.addEnchant(Enchantment.THORNS, 1, false);
+		it.setItemMeta(meta);
+		inv.addItem(it);
+
+		
+		it = new ItemStack(Material.STONE_SWORD,1);
+		meta = it.getItemMeta();
+		meta.addEnchant(Enchantment.DAMAGE_ALL, 2, false);
+		it.setItemMeta(meta);
+		inv.addItem(it);
+		
+		it = new ItemStack(Material.IRON_SWORD,1);
+		meta = it.getItemMeta();
+		meta.addEnchant(Enchantment.DAMAGE_ALL, 2, false);
+		it.setItemMeta(meta);
+		
+		inv.addItem(it);
 	}
 
 	//////////////////////////////////////
