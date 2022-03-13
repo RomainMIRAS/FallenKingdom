@@ -4,6 +4,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import fr.grimmjoow.fallenkingdom.commands.CommandGame;
 import fr.grimmjoow.fallenkingdom.commands.CommandTest;
+import fr.grimmjoow.fallenkingdom.kits.Kits;
 import fr.grimmjoow.fallenkingdom.listener.LobbyListener;
 import fr.grimmjoow.fallenkingdom.teams.TeamFK;
 import fr.grimmjoow.fallenkingdom.utils.ColorUtils;

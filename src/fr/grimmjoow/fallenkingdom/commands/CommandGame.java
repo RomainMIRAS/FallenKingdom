@@ -35,6 +35,9 @@ public class CommandGame implements CommandExecutor {
 			case "help":
 				helpMessage(sender); 
 				break;
+			case "kit":
+				main.getKits().playerSetKit((Player) sender);; 
+				break;
 			default:
 				helpMessage(sender);
 				break;
