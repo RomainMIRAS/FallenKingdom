@@ -11,6 +11,7 @@ import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
 import fr.grimmjoow.fallenkingdom.Zone;
+import fr.grimmjoow.fallenkingdom.task.ATHManager;
 import fr.grimmjoow.fallenkingdom.utils.ColorUtils;
 
 public class TeamFK {
@@ -82,6 +83,7 @@ public class TeamFK {
 			TeamFK.getTeamWithPlayer(player).removePlayer(player);
 		}
 		TeamFK.getTeamWithColor(color).addPlayer(player);
+		ATHManager.update_ATH();
 	}
 	
 	
