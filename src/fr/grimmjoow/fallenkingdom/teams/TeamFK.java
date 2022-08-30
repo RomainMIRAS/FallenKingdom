@@ -5,14 +5,17 @@ import java.util.HashSet;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.Scoreboard;
 import org.bukkit.scoreboard.ScoreboardManager;
 import org.bukkit.scoreboard.Team;
 
+import fr.grimmjoow.fallenkingdom.Main;
 import fr.grimmjoow.fallenkingdom.Zone;
 import fr.grimmjoow.fallenkingdom.task.ATHManager;
 import fr.grimmjoow.fallenkingdom.utils.ColorUtils;
+import net.minecraft.server.v1_8_R3.Position;
 
 public class TeamFK {
 	private static HashMap<Color,TeamFK> TEAMS = new HashMap<>();
@@ -22,6 +25,7 @@ public class TeamFK {
 	private int health;
 	private Color color;
 	private boolean alive;
+	private Location point_spawn;
 	private Team team;
 	private HashSet<Zone> zones = new HashSet<>();
 	private final static int VIE = 1000; //A changer
@@ -33,6 +37,8 @@ public class TeamFK {
 		
 		team = SCOREBOARD.registerNewTeam(ColorUtils.colorToString(color));
 		team.setPrefix(ColorUtils.colorToChatColor(color) + "");
+		setSpawn();
+		setZones();
 	}
 	
 	public static void initTeams() {
@@ -44,9 +50,8 @@ public class TeamFK {
 		TEAMS.put(Color.GREEN, new TeamFK(Color.GREEN));
 		TEAMS.put(Color.YELLOW, new TeamFK(Color.YELLOW));
 		TEAMS.put(Color.ORANGE, new TeamFK(Color.ORANGE));
-
 	}
-	
+		
 	
 	//Methodes de classes
 	public static HashMap<Color, TeamFK> getTeams() {
@@ -60,6 +65,16 @@ public class TeamFK {
 	public static HashSet<Player> getPlayersWithColor(Color color) {
 		return TEAMS.get(color).getPlayers();
 	}
+	
+	public static void teleportPlayers() {
+		for (TeamFK team: TeamFK.getTeams().values() ) {
+			for (Player teamPlayer : team.getPlayers()) {
+				teamPlayer.teleport(team.getPoint_spawn());
+				teamPlayer.setBedSpawnLocation(team.getPoint_spawn(),true);
+			}
+		}
+	}
+	
 	public static boolean playerHasTeam(Player player) {
 		for(TeamFK team : TEAMS.values()) {
 			if(team.players.contains(player)) {
@@ -109,6 +124,7 @@ public class TeamFK {
 		team.addEntry(player.getName());
 		player.setScoreboard(SCOREBOARD);
 		return this.players.add(player);	
+		
 	}
 	
 	// Vrai si existait dans l'équipe, faux sinon
@@ -153,5 +169,49 @@ public class TeamFK {
 		}
 		return false;
 	}
+
+	public Location getPoint_spawn() {
+		return point_spawn;
+	}
+
+	public void setPoint_spawn(Location point_spawn) {
+		this.point_spawn = point_spawn;
+	}
+	
+	private void setSpawn() {
+		if (this.getColor() == Color.RED) {
+			setPoint_spawn(new Location(Main.monde,143.5,72,103.5,90,0));
+		} else if (this.getColor() == Color.ORANGE) {
+			setPoint_spawn(new Location(Main.monde,61.5,72,128.5,-180,0));
+		} else if (this.getColor() == Color.BLUE) {
+			setPoint_spawn(new Location(Main.monde,61.5,72,-9.5,0,0));
+		} else if (this.getColor() == Color.GREEN) {
+			setPoint_spawn(new Location(Main.monde,11.5,72,59.5,-90,0));
+		} else if (this.getColor() == Color.YELLOW) {
+			setPoint_spawn(new Location(Main.monde,143.5,72,15.5,90,0));
+		}
+			
+	}
+	
+	private void setZones() {
+		if (this.getColor() == Color.RED) {
+			// Base ext 
+			this.zones.add(new Zone(new Position(131,72,89),new Position(159,90,117)));
+		} else if (this.getColor() == Color.ORANGE) {
+			// Base ext 
+			this.zones.add(new Zone(new Position(75,72,116),new Position(47,90,144)));
+		} else if (this.getColor() == Color.BLUE) {
+			// Base ext 
+			this.zones.add(new Zone(new Position(47,72,2),new Position(75,90,-26)));
+		} else if (this.getColor() == Color.GREEN) {
+			// Base ext 
+			this.zones.add(new Zone(new Position(23,72,73),new Position(-5,90,45)));
+		} else if (this.getColor() == Color.YELLOW) {
+			// Base ext 
+			this.zones.add(new Zone(new Position(131,72,1),new Position(159,90,29)));
+		}
+			
+	}
+	
 	
 }

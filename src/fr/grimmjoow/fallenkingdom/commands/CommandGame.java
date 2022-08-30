@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import fr.grimmjoow.fallenkingdom.GState;
 import fr.grimmjoow.fallenkingdom.Main;
+import fr.grimmjoow.fallenkingdom.task.Game_Starting;
 
 public class CommandGame implements CommandExecutor {
 
@@ -24,7 +25,8 @@ public class CommandGame implements CommandExecutor {
 		if (args.length == 1) {
 			switch (args[0]) {
 			case "start":
-				main.setState(GState.STARTING);
+				Game_Starting start = new Game_Starting(main);
+				start.runTaskTimer(main, 0, 20);
 				break;				
 			case "pause":
 				main.setState(GState.PAUSE);

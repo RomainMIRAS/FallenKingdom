@@ -1,6 +1,7 @@
 package fr.grimmjoow.fallenkingdom;
 
 import org.bukkit.Location;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import net.minecraft.server.v1_8_R3.Position;
@@ -41,5 +42,25 @@ public class Zone {
 
 		return onZone;
 	}
+	
+	public boolean isOn(Block block) {
+
+		boolean onZone = false;
+		Location playerl = block.getLocation();
+
+		if ((pos2.getZ() < playerl.getBlockZ() && playerl.getBlockZ() < pos1.getZ())
+				|| (pos1.getZ() < playerl.getBlockZ() && playerl.getBlockZ() < pos2.getZ())) {
+			if ((pos2.getX() < playerl.getBlockX() && playerl.getBlockX() < pos1.getX())
+					|| (pos1.getX() < playerl.getBlockX() && playerl.getBlockX() < pos2.getX())) {
+				if ((pos2.getY() < playerl.getBlockY() && playerl.getBlockY() < pos1.getY())
+						|| (pos1.getY() < playerl.getBlockY() && playerl.getBlockY() < pos2.getY())) {
+					onZone = true;
+				}
+			}
+		}
+
+		return onZone;
+	}
+	
 
 }

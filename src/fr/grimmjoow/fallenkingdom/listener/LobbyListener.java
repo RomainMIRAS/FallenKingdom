@@ -48,7 +48,6 @@ public class LobbyListener implements Listener {
 	public void onJoin(PlayerJoinEvent event) {
 
 		Player player = event.getPlayer();
-
 		player.teleport(spawn);
 		player.setFoodLevel(20);
 		player.setHealth(20);
