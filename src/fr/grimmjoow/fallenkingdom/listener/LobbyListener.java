@@ -136,10 +136,10 @@ public class LobbyListener implements Listener {
 	public void openTeamMenu(Player player) {
 		Inventory inv = Bukkit.createInventory(null, 9, "§8Choisir une équipe");
 		inv.setItem(0, getItem(Material.BANNER, "§cEquipe Rouge", (byte) 1));
-		inv.setItem(2, getItem(Material.BANNER, "§cEquipe Bleu", (byte) 4));
-		inv.setItem(4, getItem(Material.BANNER, "§cEquipe Vert", (byte) 10));
-		inv.setItem(6, getItem(Material.BANNER, "§cEquipe Jaune", (byte) 11));
-		inv.setItem(8, getItem(Material.BANNER, "§cEquipe Orange", (byte) 14));
+		inv.setItem(2, getItem(Material.BANNER, "§9Equipe Bleu", (byte) 4));
+		inv.setItem(4, getItem(Material.BANNER, "§aEquipe Vert", (byte) 10));
+		inv.setItem(6, getItem(Material.BANNER, "§eEquipe Jaune", (byte) 11));
+		inv.setItem(8, getItem(Material.BANNER, "§6Equipe Orange", (byte) 14));
 		player.openInventory(inv);
 	}
 
@@ -166,21 +166,18 @@ public class LobbyListener implements Listener {
 			// Check Click Banner
 			switch (item.getItemMeta().getDisplayName()) {
 			case "§cEquipe Rouge":
-				
 				TeamFK.switchTeamToPlayer(player, Color.RED);
-				
 				break;
-			case "§cEquipe Bleu":
-				
+			case "§9Equipe Bleu":
 				TeamFK.switchTeamToPlayer(player, Color.BLUE);;
 				break;
-			case "§cEquipe Vert":
+			case "§aEquipe Vert":
 				TeamFK.switchTeamToPlayer(player, Color.GREEN);
 				break;
-			case "§cEquipe Jaune":
+			case "§eEquipe Jaune":
 				TeamFK.switchTeamToPlayer(player, Color.YELLOW);
 				break;
-			case "§cEquipe Orange":
+			case "§6Equipe Orange":
 				TeamFK.switchTeamToPlayer(player, Color.ORANGE);
 				break;
 			default:

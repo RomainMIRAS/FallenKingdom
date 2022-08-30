@@ -16,17 +16,16 @@ import fr.grimmjoow.fallenkingdom.utils.ColorUtils;
 
 public class Main extends JavaPlugin {
 
-	public final static String worldName = "FK"; 
+	public final static String worldName = "FK";
 	public static World monde = Bukkit.getWorld(worldName);
 	private GState state;
 	private Kits kits = new Kits();
 	private String enteteChat = "§8[§9FK§8]";
-	
+
 	// Variable de temps
-	public static int minutes =0;
+	public static int minutes = 0;
 	public static int heures = 6;
 	public static int jour = 0;
-	
 
 	@Override
 	public void onEnable() {
@@ -37,8 +36,8 @@ public class Main extends JavaPlugin {
 		setState(GState.WAITING);
 		getCommand("test").setExecutor(new CommandTest());
 		getCommand("game").setExecutor(new CommandGame(this));
-		getServer().getPluginManager().registerEvents(new LobbyListener(this),this);
-		getServer().getPluginManager().registerEvents(new GameListener(this),this);	
+		getServer().getPluginManager().registerEvents(new LobbyListener(this), this);
+		getServer().getPluginManager().registerEvents(new GameListener(this), this);
 		ATHManager ath = new ATHManager(this);
 		// toutes les 0.5 secondes ( 20 = 1 s )
 		ath.runTaskTimer(this, 0, 10);
@@ -48,21 +47,21 @@ public class Main extends JavaPlugin {
 	public void onDisable() {
 		System.out.println("Le plugin c'est etaint ");
 	}
-	
+
 	public Kits getKits() {
 		return kits;
 	}
-	
+
 	public void setState(GState state) {
 		this.state = state;
 	}
-	
+
 	public boolean isState(GState state) {
 		return this.state == state;
 	}
-	
+
 	public String getEnteteChat() {
 		return enteteChat;
 	}
-	
+
 }
