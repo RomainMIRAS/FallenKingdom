@@ -4,7 +4,7 @@ This is a short personal Java project to create a plugin for the game named "Min
 
 We are using librairy "Bukkit" to help us implementing this plugin.
 
-##Usage.
+## Usage.
 
 - Create a Minecraft Bukkit server in **Version 1.8**
 - Compile this code into Bukkit Jar
